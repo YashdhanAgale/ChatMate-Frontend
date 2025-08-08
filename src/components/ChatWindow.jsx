@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import API from "../services/api";
 import MessageInput from "./MessageInput";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
@@ -13,9 +13,7 @@ export default function ChatWindow({ waId, onBack }) {
 
   const fetchMessages = async (id) => {
     try {
-      const res = await axios.get(
-        `https://chat-mate-frontend-red.vercel.app/api/conversations/${id}/messages`
-      );
+      const res = await API.get(`/conversations/${id}/messages`);
       setMessages(res.data);
     } catch (error) {
       console.error("Failed to fetch messages", error);
@@ -32,10 +30,7 @@ export default function ChatWindow({ waId, onBack }) {
 
   const handleSend = async (text) => {
     try {
-      const res = await axios.post(
-        `https://chat-mate-frontend-red.vercel.app/api/conversations/${waId}/messages`,
-        { text }
-      );
+      const res = await API.post(`/conversations/${waId}/messages`, { text });
       setMessages((prev) => [...prev, res.data]);
     } catch (err) {
       console.error("Sending message failed", err);
