@@ -14,7 +14,7 @@ export default function ChatWindow({ waId, onBack }) {
   const fetchMessages = async (id) => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/conversations/${id}/messages`
+        `https://chat-mate-frontend-red.vercel.app/api/conversations/${id}/messages`
       );
       setMessages(res.data);
     } catch (error) {
@@ -33,7 +33,7 @@ export default function ChatWindow({ waId, onBack }) {
   const handleSend = async (text) => {
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/conversations/${waId}/messages`,
+        `https://chat-mate-frontend-red.vercel.app/api/conversations/${waId}/messages`,
         { text }
       );
       setMessages((prev) => [...prev, res.data]);
